@@ -32,7 +32,9 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/assets/styles/bootstrap.scss",
+              "src/assets/styles/tailwind.scss",
+              "src/assets/styles/styles.scss"
             ],
             "scripts": []
           },
@@ -98,5 +100,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
