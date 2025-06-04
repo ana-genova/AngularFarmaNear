@@ -8,7 +8,7 @@ module.exports = {
   ],
   theme: {
     colors: {
-      primary: "#058080",
+      primary: "#235580",
       secondary: "#f7fffd",
       white: colors.white,
       gray: colors.gray,
@@ -18,17 +18,17 @@ module.exports = {
       yellow: colors.yellow,
       green: colors.green,
       theme: {
-        '50': '#effefc',
-        '100': '#c8fff8',
-        '200': '#90fff2',
-        '300': '#51f7ea',
-        '400': '#1de4db',
-        '500': '#05c7c1',
-        '600': '#00a19f',
-        '700': '#058080',
-        '800': '#0a6465',
-        '900': '#0e5153',
-        '950': '#003235',
+        '50':  '#f0f7fb',
+        '100': '#cbe4f2',
+        '200': '#a5d0e9',
+        '300': '#7db9df',
+        '400': '#57a4d7',
+        '500': '#3c8bc2',
+        '600': '#2e6ea0',
+        '700': '#235580',
+        '800': '#1a4063',
+        '900': '#132f4b',
+        '950': '#0c1d2f',
       }
     },
     fontFamily: {
