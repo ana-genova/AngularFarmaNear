@@ -34,7 +34,8 @@
             "styles": [
               "src/assets/styles/bootstrap.scss",
               "src/assets/styles/tailwind.scss",
-              "src/assets/styles/styles.scss"
+              "src/assets/styles/styles.scss",
+              "node_modules/@fortawesome/fontawesome-free/css/all.css"
             ],
             "scripts": []
           },

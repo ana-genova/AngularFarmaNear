@@ -12,3 +12,12 @@ html {
 body {
   @apply h-full;
 }
+
+router-outlet {
+  + * {
+    position: relative;
+    display: flex;
+    flex: 1 1 auto;
+    width: 100%;
+  }
+}
