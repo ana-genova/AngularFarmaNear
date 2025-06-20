@@ -1,0 +1,19 @@
+@if (gradient !== 'none') {
+  <div [ngClass]="{'md:rounded-l-[20px]': gradient === 'left', 'md:rounded-r-[20px]': gradient === 'right'}"
+       [attr.class]="cssClass"
+       class="group md:p-[3px] bg-gradient-to-r md:from-theme-600 md:to-theme-400 md:focus-within:from-theme-700
+       md:focus-within:to-theme-500">
+    <ng-container [ngTemplateOutlet]="inputTemplate"></ng-container>
+  </div>
+} @else {
+  <ng-container [ngTemplateOutlet]="inputTemplate"></ng-container>
+}
+
+<ng-template #inputTemplate>
+  <div [ngClass]="{'md:rounded-l-[17px]': gradient === 'left', 'md:rounded-r-[17px]': gradient === 'right',
+    cssClass: gradient === 'none'}" class="input-group md:border-none bg-white" [style.height]="height">
+    <i [class]="icon"></i>
+    <input [ngModel]="value" (ngModelChange)="onChange($event)" (blur)="onTouched()" [disabled]="disabled"
+           [placeholder]="placeholder" class="form-control">
+  </div>
+</ng-template>

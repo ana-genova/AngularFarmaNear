@@ -1,0 +1,23 @@
+<div class="relative inline-block text-left" (click)="toggleDropdown()">
+  <button class="inline-flex w-full justify-center py-2 px-3
+  hover:shadow transition" type="button">
+    <div class="w-full flex">
+      {{ placeholder }}
+      <i class="ms-2 my-auto w-auto fas fa-chevron-down"></i>
+    </div>
+  </button>
+
+  @if (isOpen) {
+    <div class="absolute right-0 mt-1 origin-top-right bg-white shadow-lg z-10">
+      <ul class="py-1 text-gray-700">
+        @for (item of items; track $index) {
+          <li
+            [ngClass]="value === item.type ? 'bg-theme-500 hover:text-gray-100' : 'hover:bg-gray-100 hover:text-gray-900'"
+            class="px-4 py-2 cursor-pointer" (click)="itemClicked(item)">
+            {{ item.description }}
+          </li>
+        }
+      </ul>
+    </div>
+  }
+</div>

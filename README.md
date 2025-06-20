@@ -16,6 +16,12 @@ Consumir a API central desenvolvida em java, que representa o desafio proposto p
 - [RxJS](https://rxjs.dev/)
 - [Angular CLI](https://github.com/angular/angular-cli)
 
+## 🛠️ Configuração do ambiente
+
+1. Adicione o arquivo `environment.local.ts` com sua chave da API do Google Maps
+2. Este arquivo não será versionado no git por questões de segurança
+
+
 ## 🚀 Como executar
 
 ```bash
@@ -29,3 +35,4 @@ npm install
 
 # Inicie a aplicação
 ng serve
+```

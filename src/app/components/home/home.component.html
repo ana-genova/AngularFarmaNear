@@ -1,16 +1,46 @@
-<div class="p-6 lg:p-8 w-full">
-  <app-header></app-header>
-  <div class="flex justify-center items-center h-full">
-    <div class="text-center text-2xl py-6 lg:py-8">
-      <div class="pt-3 text-zinc-600 text-xl font-extrabold leading-tight tracking-tight sm:text-5xl">
-        <p>Encontre facilmente farmácias populares</p>
-        <p>com o medicamento que você precisa</p>
-      </div>
-      <p class="pt-4 text-zinc-400 text-center tracking-tight sm:text-2xl">É rápido. É fácil.</p>
-      <div class="pt-4">
-        <div class="input-group rounded-pill">
-          <i class="fas fa-magnifying-glass"></i>
-          <input type="text" placeholder="Endereço" aria-label="Endereço">
+<div class="p-6 lg:p-8 w-full h-full">
+  <div class="flex flex-col h-full">
+    <app-header></app-header>
+    <div class="flex-1 flex-col flex justify-center items-center">
+      <div class="w-full sm:w-4/5 lg:w-8/12">
+        <div class="pt-6 lg:pt-8 text-zinc-600 text-2xl font-extrabold leading-tight tracking-tight sm:text-3xl lg:text-5xl">
+          <p>Encontre farmácias populares</p>
+          <p>com o medicamento que você precisa!</p>
+        </div>
+
+        <div class="pt-6 lg:pt-8">
+          <div [formGroup]="form" class="row g-0">
+            <div class="col-12 col-md-6 md:mb-0">
+              <app-input-text cssClass="w-full" gradient="left"
+                              placeholder="Digite aqui o medicamento que procura"
+                              icon="fas fa-magnifying-glass" height="56px" formControlName="medicine"
+              ></app-input-text>
+            </div>
+            <div class="col-12 col-md-6 md:mb-0">
+              <app-input-text cssClass="w-full" gradient="right"
+                              placeholder="Digite aqui seu endereço"
+                              icon="fas fa-location-dot" height="56px" formControlName="address"
+              ></app-input-text>
+            </div>
+          </div>
+          <div class="row flex items-center pt-1 lg:pt-2">
+            <div class="ps-0 col-12 offset-sm-6 col-sm cursor-pointer hover:underline">
+              <i class="fas fa-location-arrow"></i> Usar minha localização
+            </div>
+            <div class="col-12 col-sm-auto">
+              <app-dropdown-button placeholder="Raio" [items]="radiusItems" [value]="selectedRadius"
+                                   (onItemClick)="onSelectRadius($event)"
+              ></app-dropdown-button>
+            </div>
+            <div class="col-12 col-sm-auto pe-0">
+              <button class="text-center text-white focus:outline-none text-base bg-theme-700 py-2 px-3">
+                Buscar medicamento
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="pt-6 lg:pt-8">
+          <app-google-maps [height]="500"></app-google-maps>
         </div>
       </div>
     </div>

@@ -1,0 +1,36 @@
+.input-group {
+  border: 3px solid #3c8bc2;
+  text-align: start;
+  display: flex;
+  align-items: center;
+
+  i {
+    @apply ps-3 text-zinc-400;
+
+    margin: auto 0;
+    font-size: 1.3rem;
+  }
+
+  input {
+    @apply h-full w-full p-2;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+
+    &:focus {
+      outline: none;
+
+      & + .input-group {
+        border-color: #235580;
+      }
+    }
+
+    &::placeholder {
+      @apply text-zinc-400;
+    }
+  }
+}
+
+.input-group-border-radius {
+  border-radius: 20px;
+}
