@@ -1,8 +1,7 @@
 @if (gradient !== 'none') {
-  <div [ngClass]="{'md:rounded-l-[20px]': gradient === 'left', 'md:rounded-r-[20px]': gradient === 'right'}"
-       [attr.class]="cssClass"
-       class="group md:p-[3px] bg-gradient-to-r md:from-theme-600 md:to-theme-400 md:focus-within:from-theme-700
-       md:focus-within:to-theme-500">
+  <div [ngClass]="cssClass"
+       class="md:p-[3px] bg-gradient-to-r md:from-theme-600 md:to-theme-400 md:focus-within:from-theme-700
+       md:focus-within:to-theme-500 md:rounded-none-[20px]">
     <ng-container [ngTemplateOutlet]="inputTemplate"></ng-container>
   </div>
 } @else {
@@ -10,8 +9,8 @@
 }
 
 <ng-template #inputTemplate>
-  <div [ngClass]="{'md:rounded-l-[17px]': gradient === 'left', 'md:rounded-r-[17px]': gradient === 'right',
-    cssClass: gradient === 'none'}" class="input-group md:border-none bg-white" [style.height]="height">
+  <div [ngClass]="gradient === 'none' ? cssClass : 'md:rounded-none-[17px]'" [style.height]="height"
+       class="input-group md:border-none bg-white">
     <i [class]="icon"></i>
     <input [ngModel]="value" (ngModelChange)="onChange($event)" (blur)="onTouched()" [disabled]="disabled"
            [placeholder]="placeholder" class="form-control">

@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {HeaderComponent} from '../header/header.component';
 import {InputTextComponent} from '../../shared/components/input-text/input-text.component';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
@@ -18,6 +18,9 @@ import {GoogleMapsComponent} from '../../shared/components/google-maps/google-ma
 })
 export class HomeComponent {
 
+  @ViewChild(GoogleMapsComponent)
+  mapsComponent!: GoogleMapsComponent;
+
   protected radiusItems: Array<DropdownItem> = [
     {type: 30, description: '30'},
     {type: 60, description: '60'},
@@ -36,5 +39,9 @@ export class HomeComponent {
 
   onSelectRadius(item: DropdownItem): void {
     this.selectedRadius = item.type;
+  }
+
+  useLocation(): void {
+    this.mapsComponent.initGeolocation(true);
   }
 }

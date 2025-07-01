@@ -9,31 +9,31 @@
         </div>
 
         <div class="pt-6 lg:pt-8">
-          <div [formGroup]="form" class="row g-0">
-            <div class="col-12 col-md-6 md:mb-0">
+          <div class="row g-0" [formGroup]="form">
+            <div class="col-12 col-md-6 mb-2 md:mb-0">
               <app-input-text cssClass="w-full" gradient="left"
                               placeholder="Digite aqui o medicamento que procura"
                               icon="fas fa-magnifying-glass" height="56px" formControlName="medicine"
               ></app-input-text>
             </div>
-            <div class="col-12 col-md-6 md:mb-0">
+            <div class="col-12 col-md-6 mb-2 md:mb-0">
               <app-input-text cssClass="w-full" gradient="right"
                               placeholder="Digite aqui seu endereço"
                               icon="fas fa-location-dot" height="56px" formControlName="address"
               ></app-input-text>
             </div>
           </div>
-          <div class="row flex items-center pt-1 lg:pt-2">
-            <div class="ps-0 col-12 offset-sm-6 col-sm cursor-pointer hover:underline">
+          <div class="row g-0 flex items-center pt-1 lg:pt-2">
+            <div class="col cursor-pointer hover:underline" (click)="useLocation()">
               <i class="fas fa-location-arrow"></i> Usar minha localização
             </div>
-            <div class="col-12 col-sm-auto">
+            <div class="col-auto">
               <app-dropdown-button placeholder="Raio" [items]="radiusItems" [value]="selectedRadius"
                                    (onItemClick)="onSelectRadius($event)"
               ></app-dropdown-button>
             </div>
             <div class="col-12 col-sm-auto pe-0">
-              <button class="text-center text-white focus:outline-none text-base bg-theme-700 py-2 px-3">
+              <button class="text-center w-full text-white focus:outline-none text-base bg-theme-700 py-2 px-3">
                 Buscar medicamento
               </button>
             </div>

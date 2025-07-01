@@ -32,10 +32,12 @@
               }
             ],
             "styles": [
+              "src/assets/styles/sweet-alert.scss",
               "src/assets/styles/bootstrap.scss",
               "src/assets/styles/tailwind.scss",
               "src/assets/styles/styles.scss",
-              "node_modules/@fortawesome/fontawesome-free/css/all.css"
+              "node_modules/@fortawesome/fontawesome-free/css/all.css",
+              "node_modules/sweetalert2/src/sweetalert2.scss"
             ],
             "scripts": []
           },

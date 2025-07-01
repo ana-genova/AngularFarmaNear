@@ -2,6 +2,7 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {GoogleMap, MapMarker} from '@angular/google-maps';
 import {SharedUtils} from '../../utils/shared.utils';
 import {GoogleMapsService} from './google-maps.service';
+import {DialogUtils} from '../../utils/dialog.utils';
 
 @Component({
   standalone: true,
@@ -29,7 +30,7 @@ export class GoogleMapsComponent implements OnInit {
 
   protected googleMaps: any;
   protected geocoder: any;
-  center: google.maps.LatLngLiteral = {lat: 0, lng: 0};
+  center: google.maps.LatLngLiteral = {lat: -23.5975766, lng: -46.6779468};
   markerPositions: Array<any> = [];
   mapOptions: any = {};
   protected lastInfoWindow: any;
@@ -49,21 +50,41 @@ export class GoogleMapsComponent implements OnInit {
     }
   }
 
-  private initializeGoogleMapsObjects() {
+  private initializeGoogleMapsObjects(): void {
     this.googleMaps = google.maps;
     this.geocoder = new google.maps.Geocoder();
     this.initMap();
   }
 
-  initGeolocation() {
+  initGeolocation(showErrorMessage = false): void {
     if (!navigator.geolocation) {
       return;
     }
 
-    navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
-      this.center = {lat: position.coords.latitude, lng: position.coords.longitude};
-      this.initMap();
-    });
+    navigator.geolocation.getCurrentPosition(
+      (position: GeolocationPosition) => {
+        this.center = {lat: position.coords.latitude, lng: position.coords.longitude};
+        this.initMap();
+      },
+      (error) => {
+        if (!showErrorMessage) {
+          return;
+        }
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            DialogUtils.warning('Permissão negada', 'Para usar esse recurso ative a permissão de localização da página.');
+            break;
+          case error.POSITION_UNAVAILABLE:
+            DialogUtils.error('Erro', 'Informação de localização não está disponível.');
+            break;
+          case error.TIMEOUT:
+            DialogUtils.error('Erro', 'Tempo esgotado ao tentar obter a localização.');
+            break;
+          default:
+            DialogUtils.error('Erro', 'Não foi possível obter a localização.');
+        }
+      }
+    );
   }
 
   private showPopupInfos(location: any): void {
