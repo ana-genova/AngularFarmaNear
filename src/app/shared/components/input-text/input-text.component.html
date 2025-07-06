@@ -9,9 +9,11 @@
 }
 
 <ng-template #inputTemplate>
-  <div [ngClass]="gradient === 'none' ? cssClass : 'md:rounded-none-[17px]'" [style.height]="height"
-       class="input-group md:border-none bg-white">
-    <i [class]="icon"></i>
+  <div [ngClass]="gradient === 'none' ? cssClass : 'md:border-none md:rounded-none-[17px]'" [style.height]="height"
+       class="input-group bg-white">
+    @if (icon) {
+      <i [class]="icon"></i>
+    }
     <input [ngModel]="value" (ngModelChange)="onChange($event)" (blur)="onTouched()" [disabled]="disabled"
            [placeholder]="placeholder" class="form-control">
   </div>

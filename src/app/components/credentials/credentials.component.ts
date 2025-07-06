@@ -1,24 +1,20 @@
 import {Component, OnInit} from '@angular/core';
 import {TerminalAnimationService} from './terminal-animation.service';
-import {NgOptimizedImage} from '@angular/common';
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
-import {InputTextComponent} from '../../shared/components/input-text/input-text.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {RouterOutlet} from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
+  selector: 'app-credentials',
+  templateUrl: './credentials.component.html',
   imports: [
-    NgOptimizedImage,
     ReactiveFormsModule,
-    InputTextComponent
+    RouterOutlet
   ],
   providers: [
     TerminalAnimationService
   ]
 })
-export class LoginComponent implements OnInit {
-
-  protected form: FormGroup;
+export class CredentialsComponent implements OnInit {
 
   protected terminalLines = [
     'Encontre farmácias populares com o medicamento que você precisa!',
@@ -34,12 +30,7 @@ export class LoginComponent implements OnInit {
   protected currentLine = '';
   protected resetTerminalLine = true;
 
-  constructor(private _formBuilder: FormBuilder,
-              private _terminalAnimationService: TerminalAnimationService) {
-    this.form = this._formBuilder.group({
-      user: new FormControl(),
-      password: new FormControl()
-    });
+  constructor(private _terminalAnimationService: TerminalAnimationService) {
   }
 
   ngOnInit(): void {
