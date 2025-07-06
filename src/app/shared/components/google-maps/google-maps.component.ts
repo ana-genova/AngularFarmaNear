@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {GoogleMap, MapMarker} from '@angular/google-maps';
 import {SharedUtils} from '../../utils/shared.utils';
 import {GoogleMapsService} from './google-maps.service';
@@ -14,7 +14,7 @@ import {DialogUtils} from '../../utils/dialog.utils';
   templateUrl: './google-maps.component.html',
   styleUrl: './google-maps.component.scss'
 })
-export class GoogleMapsComponent implements OnInit {
+export class GoogleMapsComponent implements OnInit, OnChanges {
 
   @ViewChild(GoogleMap)
   map!: GoogleMap;
@@ -47,6 +47,12 @@ export class GoogleMapsComponent implements OnInit {
       this.initGeolocation();
     } catch (error) {
       console.error('Erro ao carregar Google Maps:', error);
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['radius'] && !changes['radius'].firstChange) {
+      this.initMap();
     }
   }
 

@@ -1,4 +1,4 @@
-# FarmaNear Angular - Hackaton FIAP 6ADJT
+# FarmaSUS Angular - Hackaton FIAP 6ADJT
 
 Este repositório contém a aplicação **frontend Angular** desenvolvida para o **Hackaton** da pós-graduação **Arquitetura e Desenvolvimento Java - 6ADJT (FIAP)**.
 

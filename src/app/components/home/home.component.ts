@@ -4,6 +4,7 @@ import {InputTextComponent} from '../../shared/components/input-text/input-text.
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {DropdownButtonComponent, DropdownItem} from '../../shared/components/dropdown-button/dropdown-button.component';
 import {GoogleMapsComponent} from '../../shared/components/google-maps/google-maps.component';
+import {FooterComponent} from '../footer/footer.component';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,8 @@ import {GoogleMapsComponent} from '../../shared/components/google-maps/google-ma
     InputTextComponent,
     ReactiveFormsModule,
     DropdownButtonComponent,
-    GoogleMapsComponent
+    GoogleMapsComponent,
+    FooterComponent
   ]
 })
 export class HomeComponent {
@@ -28,7 +30,7 @@ export class HomeComponent {
   ];
 
   protected form: FormGroup;
-  protected selectedRadius: string | number = 30;
+  protected selectedRadius: number = 30;
 
   constructor(private _formBuilder: FormBuilder) {
     this.form = this._formBuilder.group({
@@ -38,7 +40,7 @@ export class HomeComponent {
   }
 
   onSelectRadius(item: DropdownItem): void {
-    this.selectedRadius = item.type;
+    this.selectedRadius = <number>item.type;
   }
 
   useLocation(): void {

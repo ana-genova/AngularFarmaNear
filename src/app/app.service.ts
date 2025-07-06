@@ -4,5 +4,5 @@ import {Injectable} from '@angular/core';
   providedIn: 'root'
 })
 export class AppConfigService {
-  readonly appTitle = 'FarmaNear';
+  readonly appTitle = 'FarmaSUS';
 }

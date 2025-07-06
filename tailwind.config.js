@@ -33,7 +33,8 @@ module.exports = {
     },
     fontFamily: {
       roboto: ['Roboto', 'sans-serif'],
-      parkinsans: ['Parkinsans', 'sans-serif']
+      parkinsans: ['Parkinsans', 'sans-serif'],
+      mono: ['Mono', 'sans-serif']
     }
   },
   plugins: [],

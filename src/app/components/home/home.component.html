@@ -1,9 +1,10 @@
 <div class="p-6 lg:p-8 w-full h-full">
-  <div class="flex flex-col h-full">
+  <div class="h-full">
     <app-header></app-header>
     <div class="flex-1 flex-col flex justify-center items-center">
       <div class="w-full sm:w-4/5 lg:w-8/12">
-        <div class="pt-6 lg:pt-8 text-zinc-600 text-2xl font-extrabold leading-tight tracking-tight sm:text-3xl lg:text-5xl">
+        <div
+          class="pt-6 lg:pt-8 text-zinc-600 text-2xl font-extrabold leading-tight tracking-tight sm:text-3xl lg:text-5xl">
           <p>Encontre farmácias populares</p>
           <p>com o medicamento que você precisa!</p>
         </div>
@@ -40,9 +41,10 @@
           </div>
         </div>
         <div class="pt-6 lg:pt-8">
-          <app-google-maps [height]="500"></app-google-maps>
+          <app-google-maps [height]="500" [radius]="selectedRadius"></app-google-maps>
         </div>
       </div>
     </div>
   </div>
 </div>
+<app-footer></app-footer>
