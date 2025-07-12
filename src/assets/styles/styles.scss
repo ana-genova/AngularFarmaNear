@@ -18,3 +18,11 @@ router-outlet {
     @apply flex-1 flex flex-col;
   }
 }
+
+.button {
+  @apply bg-theme-700 hover:bg-theme-800 text-white text-center text-base font-semibold;
+  @apply w-full h-full flex justify-center items-center py-2 px-3 cursor-pointer;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

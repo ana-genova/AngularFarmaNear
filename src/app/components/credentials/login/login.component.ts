@@ -22,4 +22,8 @@ export class LoginComponent {
       password: new FormControl()
     });
   }
+
+  protected formControl(formControlName: string): FormControl<any> {
+    return this.form.get(formControlName) ? this.form.get(formControlName) as FormControl : new FormControl();
+  }
 }

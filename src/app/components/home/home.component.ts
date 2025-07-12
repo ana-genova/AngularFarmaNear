@@ -39,11 +39,15 @@ export class HomeComponent {
     });
   }
 
-  onSelectRadius(item: DropdownItem): void {
+  protected onSelectRadius(item: DropdownItem): void {
     this.selectedRadius = <number>item.type;
   }
 
-  useLocation(): void {
+  protected useLocation(): void {
     this.mapsComponent.initGeolocation(true);
+  }
+
+  protected formControl(formControlName: string): FormControl<any> {
+    return this.form.get(formControlName) ? this.form.get(formControlName) as FormControl : new FormControl();
   }
 }

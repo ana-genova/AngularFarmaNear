@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, forwardRef, Input, Output} from '@angular/core';
 import {NgClass, NgTemplateOutlet} from '@angular/common';
 import {FormControl, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule} from '@angular/forms';
 
@@ -9,7 +9,7 @@ import {FormControl, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule} from '
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: InputTextComponent,
+      useExisting: forwardRef(() => InputTextComponent),
       multi: true
     }
   ],
@@ -20,7 +20,7 @@ import {FormControl, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule} from '
     FormsModule
   ],
 })
-export class InputTextComponent {
+export class InputTextComponent implements AfterViewInit {
 
   @Input()
   gradient: 'none' | 'left' | 'right' = 'none';
@@ -38,19 +38,27 @@ export class InputTextComponent {
   height: string = '';
 
   @Input()
-  formControl: FormControl;
+  formControl!: FormControl;
 
-  value: any;
-  disabled: boolean = false;
-  onChange: any = () => {};
-  onTouched: any = () => {};
+  @Output()
+  valueChanged: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor() {
-    this.formControl = new FormControl();
+  private _value: any;
+
+  onChange: (value: any) => void = () => {
+  };
+  onTouched: () => void = () => {
+  };
+
+  ngAfterViewInit(): void {
+    if (this.formControl) {
+      this.formControl.valueChanges.subscribe(value => this.valueChanged.emit(value));
+    }
   }
 
   writeValue(value: any): void {
-    this.value = value;
+    this._value = value;
+    this.formControl?.setValue(value, {emitEvent: false}); // atualiza o valor no formControl
   }
 
   registerOnChange(fn: any): void {
@@ -62,7 +70,22 @@ export class InputTextComponent {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
+    isDisabled ? this.formControl?.disable() : this.formControl?.enable();
   }
 
+  onInput(target: any): void {
+    this._value = target.value;
+    this.onChange(target.value);
+  }
+
+  onBlur(): void {
+    this.onTouched();
+  }
+
+  protected get errorMessage(): string {
+    if (!this.formControl || !this.formControl.errors) {
+      return '';
+    }
+    return this.formControl.errors['errorMessage'] ??  '';
+  }
 }

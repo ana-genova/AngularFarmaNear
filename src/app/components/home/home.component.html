@@ -12,15 +12,13 @@
         <div class="pt-6 lg:pt-8">
           <div class="row g-0" [formGroup]="form">
             <div class="col-12 col-md-6 mb-2 md:mb-0">
-              <app-input-text cssClass="w-full" gradient="left"
-                              placeholder="Digite aqui o medicamento que procura"
-                              icon="fas fa-magnifying-glass" height="56px" formControlName="medicine"
+              <app-input-text cssClass="w-full" gradient="left" placeholder="Digite aqui o medicamento que procura"
+                              icon="fas fa-magnifying-glass" height="56px" [formControl]="formControl('medicine')"
               ></app-input-text>
             </div>
             <div class="col-12 col-md-6 mb-2 md:mb-0">
-              <app-input-text cssClass="w-full" gradient="right"
-                              placeholder="Digite aqui seu endereço"
-                              icon="fas fa-location-dot" height="56px" formControlName="address"
+              <app-input-text cssClass="w-full" gradient="right" placeholder="Digite aqui seu endereço"
+                              icon="fas fa-location-dot" height="56px" [formControl]="formControl('address')"
               ></app-input-text>
             </div>
           </div>
@@ -34,7 +32,7 @@
               ></app-dropdown-button>
             </div>
             <div class="col-12 col-sm-auto pe-0">
-              <button class="text-center w-full text-white focus:outline-none text-base bg-theme-700 py-2 px-3">
+              <button class="button">
                 Buscar medicamento
               </button>
             </div>

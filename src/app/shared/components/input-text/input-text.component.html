@@ -14,7 +14,13 @@
     @if (icon) {
       <i [class]="icon"></i>
     }
-    <input [ngModel]="value" (ngModelChange)="onChange($event)" (blur)="onTouched()" [disabled]="disabled"
-           [placeholder]="placeholder" class="form-control">
+
+    @if (formControl) {
+      <input [placeholder]="placeholder" class="form-control" [formControl]="formControl"
+             (input)="onInput($event.target)" (blur)="onBlur()"/>
+    }
   </div>
+  @if (formControl.invalid && (formControl.dirty || formControl.touched)) {
+    <div class="text-red-500 text-xs overflow-hidden text-ellipsis animate-fade -mt-[1px]">*{{ errorMessage }}</div>
+  }
 </ng-template>
