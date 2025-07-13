@@ -4,4 +4,6 @@ export class RoutesUtils {
   static LOGIN_CHOOSE = 'login_choose';
   static PATIENT = 'patient';
   static PHARMACY = 'pharmacy';
+  static PROFILE = 'profile';
+  static STORAGE = 'storage';
 }

@@ -1,0 +1,7 @@
+@if (menuOpen) {
+  <div class="shadow flex-auto w-full h-full absolute sm:relative sm:w-[300px] p-3" style="z-index: 5">
+    @if (menuButtons) {
+      <div [outerHTML]="menuButtons"></div>
+    }
+  </div>
+}

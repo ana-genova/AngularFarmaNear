@@ -1,0 +1,28 @@
+<div class="relative h-full">
+  <div class="flex flex-col flex-auto h-full min-w-0 overflow-x-hidden w-full">
+    <div class="relative flex align-items-center shadow">
+      <div class="w-full sm:w-[300px] h-[70px] flex p-4 align-items-center">
+        <a class="text-primary font-parkinsans text-xl sm:text-3xl font-semibold" href="/home">
+          {{ appTitle }}
+        </a>
+        <div class="d-flex w-full justify-end text-3xl font-semibold">
+          <div class="w-[40px] h-[40px]">
+            <button (click)="toggleMobileMenu()" class="button button-normal">
+              <img ngSrc="/icons/hero-outline-bars.svg" alt="menu" height="35" width="35"/>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-1">
+      <app-navigation></app-navigation>
+      <div class="flex flex-col flex-1 justify-center items-center">
+        <div class="min-h-full w-full h-[calc(100vh-70px)] bg-zinc-200 p-2">
+          <div class="h-full bg-zinc-100 p-4 overflow-y-auto">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

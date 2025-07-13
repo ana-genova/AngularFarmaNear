@@ -1,11 +1,14 @@
 import {Component} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
-import {InputTextComponent} from '../../../shared/components/input-text/input-text.component';
 import {Router} from '@angular/router';
-import {RoutesUtils} from '../../../shared/utils/routes.utils';
-import {UserType} from '../../../shared/enum/user-type.enum';
-import {ValidatorsUtils} from '../../../shared/utils/validators.utils';
+
+import {InputTextComponent} from '../../../shared/components/input-text/input-text.component';
+
 import {DialogUtils} from '../../../shared/utils/dialog.utils';
+import {RoutesUtils} from '../../../shared/utils/routes.utils';
+import {ValidatorsUtils} from '../../../shared/utils/validators.utils';
+
+import {UserType} from '../../../shared/enum/user-type.enum';
 
 @Component({
   selector: 'app-accreditation',
@@ -24,24 +27,24 @@ export class AccreditationComponent {
   constructor(private _formBuilder: FormBuilder,
               private _router: Router) {
     this.form = this._formBuilder.group({
-      user: new FormControl(null, [ValidatorsUtils.required]),
+      login: new FormControl(null, [ValidatorsUtils.required]),
       password: new FormControl(null, [ValidatorsUtils.passwordDynamic]),
       passwordConfirmation: new FormControl(null, [ValidatorsUtils.required]),
-      type: new FormControl(null, [ValidatorsUtils.required]),
+      role: new FormControl(null, [ValidatorsUtils.required]),
       name: new FormControl(null, [ValidatorsUtils.required]),
     });
 
 
     if (this._router.url.includes(RoutesUtils.PATIENT)) {
-      this.form.get('type')?.setValue(UserType.PATIENT);
+      this.form.get('role')?.setValue(UserType.PATIENT);
       this.userPlaceholder = 'Nome completo';
       this.documentPlaceholder = 'CPF';
-      this.form.get('user')?.addValidators(ValidatorsUtils.cpf);
+      this.form.get('login')?.addValidators(ValidatorsUtils.cpf);
     } else {
       this.documentPlaceholder = 'CNPJ';
       this.userPlaceholder = 'Razão social';
-      this.form.get('type')?.setValue(UserType.PHARMACY);
-      this.form.get('user')?.addValidators(ValidatorsUtils.cnpj);
+      this.form.get('role')?.setValue(UserType.PHARMACY);
+      this.form.get('login')?.addValidators(ValidatorsUtils.cnpj);
     }
   }
 

@@ -1,8 +1,10 @@
+@use "./waiting-screen";
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;700&display=swap');
 
 html {
-  @apply bg-zinc-100 h-screen;
+  @apply bg-zinc-100 h-screen overflow-hidden;
 
   > * {
     @apply font-roboto ;
@@ -20,9 +22,22 @@ router-outlet {
 }
 
 .button {
-  @apply bg-theme-700 hover:bg-theme-800 text-white text-center text-base font-semibold;
-  @apply w-full h-full flex justify-center items-center py-2 px-3 cursor-pointer;
+  @apply text-center text-base font-semibold;
+  @apply w-full h-full flex justify-center items-center cursor-pointer;
 
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.button-success {
+  @apply bg-theme-700 hover:bg-theme-800 text-white py-2 px-3 disabled:opacity-50 disabled:hover:bg-theme-700
+  disabled:hover:opacity-50;
+}
+
+.button-normal {
+  @apply bg-zinc-200 hover:bg-zinc-300 text-zinc-800 p-1 disabled:opacity-50 disabled:hover:bg-zinc-200 disabled:hover:opacity-50;
+}
+
+.button-outlined {
+  @apply bg-white hover:bg-zinc-400 p-1 border disabled:opacity-50 disabled:hover:bg-white disabled:hover:opacity-50;
 }
