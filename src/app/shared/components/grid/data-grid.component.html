@@ -1,4 +1,26 @@
 <div class="p-4 bg-white rounded shadow-md font-medium">
+  @if (title) {
+    <div class="font-semibold">{{ title }}</div>
+  }
+
+  @if (buttons && buttons.length > 0) {
+    <div class="flex mb-2">
+      @for (button of buttons; track button.id) {
+        <button class="button mr-2 w-auto h-auto px-2 py-1 text-sm flex items-center justify-between"
+                [ngClass]="button.type === 'success' ? 'button-success' : button.type === 'danger' ? 'button-danger' : 'button-normal'"
+                (click)="button.action(selectedRow)">
+          @if (button.icon) {
+            <i class="me-1" [ngClass]="button.icon"></i>
+          }
+          {{ button.label }}
+        </button>
+      }
+    </div>
+  }
+  <div class="row">
+    <div class="col"></div>
+  </div>
+
   <table class="w-full table-auto border-collapse">
     <thead>
     <tr class="bg-gray-100">
@@ -11,7 +33,8 @@
     </thead>
     <tbody>
       @for (row of pagedRows; track $index) {
-        <tr class="hover:bg-gray-50">
+        <tr class="cursor-pointer hover:contrast-75" [ngClass]="selectedRow === row ? 'bg-theme-200' : 'bg-gray-50'"
+            (click)="selectRow(row)">
           @for (col of columns; track col.id) {
             <td class="px-4 py-2 text-gray-800 border-t">
               {{ row[col.field] }}

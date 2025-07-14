@@ -4,7 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;700&display=swap');
 
 html {
-  @apply bg-zinc-100 h-screen overflow-hidden;
+  @apply bg-zinc-100 h-screen;
 
   > * {
     @apply font-roboto ;
@@ -13,6 +13,27 @@ html {
 
 body {
   @apply h-full;
+}
+
+::-webkit-scrollbar {
+  width: 13px !important;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 0 !important;
+  background: #0c1d2f !important;
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+  background: transparent;
+}
+
+::-webkit-scrollbar-button {
+  display: none !important;
 }
 
 router-outlet {
@@ -24,20 +45,26 @@ router-outlet {
 .button {
   @apply text-center text-base font-semibold;
   @apply w-full h-full flex justify-center items-center cursor-pointer;
+  @apply py-2 px-3;
 
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .button-success {
-  @apply bg-theme-700 hover:bg-theme-800 text-white py-2 px-3 disabled:opacity-50 disabled:hover:bg-theme-700
+  @apply bg-theme-700 hover:bg-theme-800 text-white disabled:opacity-50 disabled:hover:bg-theme-700
+  disabled:hover:opacity-50;
+}
+
+.button-danger {
+  @apply bg-red-600 hover:bg-red-900 text-white disabled:opacity-50 disabled:hover:bg-red-600
   disabled:hover:opacity-50;
 }
 
 .button-normal {
-  @apply bg-zinc-200 hover:bg-zinc-300 text-zinc-800 p-1 disabled:opacity-50 disabled:hover:bg-zinc-200 disabled:hover:opacity-50;
+  @apply bg-zinc-200 hover:bg-zinc-300 text-zinc-800 disabled:opacity-50 disabled:hover:bg-zinc-200 disabled:hover:opacity-50;
 }
 
 .button-outlined {
-  @apply bg-white hover:bg-zinc-400 p-1 border disabled:opacity-50 disabled:hover:bg-white disabled:hover:opacity-50;
+  @apply bg-white hover:bg-zinc-400 border disabled:opacity-50 disabled:hover:bg-white disabled:hover:opacity-50;
 }

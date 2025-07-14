@@ -1,23 +1,36 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import {NgClass} from '@angular/common';
+import {ColumnDef, DataGridButtons} from '../../interface/data-grid.interface';
 
 @Component({
   selector: 'app-data-grid',
   imports: [
-    FormsModule
+    FormsModule,
+    NgClass
   ],
   templateUrl: './data-grid.component.html'
 })
 export class DataGridComponent implements OnInit {
 
+  @Input()
+  buttons: Array<DataGridButtons> | undefined;
+
+  @Input()
+  title: string | undefined;
+
+  @Input()
   columns: ColumnDef[] = [];
+
+  @Input()
   rows: any[] = [];
 
   currentPage = 1;
+  pageInput: number = 1;
   pageSize = 5;
   totalPages = 1;
 
-  pageInput: number = 1;
+  selectedRow = null;
 
   ngOnInit(): void {
     this.columns = [
@@ -58,10 +71,8 @@ export class DataGridComponent implements OnInit {
     const p = Math.floor(this.pageInput);
     this.goTo(p);
   }
-}
 
-export interface ColumnDef {
-  id: string | number;
-  field: string;
-  header: string;
+  selectRow(row: any) {
+    this.selectedRow = row;
+  }
 }

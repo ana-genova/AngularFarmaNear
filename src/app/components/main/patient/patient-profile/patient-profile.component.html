@@ -1,1 +1,58 @@
-<p>patient-profile works!</p>
+<div class="px-4 py-3 bg-primary text-white">
+  <h5><i class="fas fa-user me-2"></i>Perfil</h5>
+</div>
+<div class="p-4">
+  <form [formGroup]="form" (submit)="submit()">
+    <div class="row g-1">
+      <div class="col-12 col-md-3 mt-2">
+        <app-input-text cssClass="w-full border border-zinc-300" placeholder="CPF" height="45px"
+                        [formControl]="formControl('cpf')"
+        ></app-input-text>
+      </div>
+      <div class="col-12 col-md-6 mt-2">
+        <app-input-text cssClass="w-full border border-zinc-300" placeholder="Nome completo" height="45px"
+                        [formControl]="formControl('name')"
+        ></app-input-text>
+      </div>
+      <div class="col-12 col-md-3 mt-2">
+        <app-input-text cssClass="w-full border border-zinc-300" placeholder="Celular" height="45px"
+                        [formControl]="formControl('mobile_phone')"
+        ></app-input-text>
+      </div>
+      <div class="col-12 col-md-12 mt-2">
+        <app-input-text cssClass="w-full border border-zinc-300" placeholder="E-mail" height="45px"
+                        [formControl]="formControl('email')"
+        ></app-input-text>
+      </div>
+      <div class="col-12 col-md-9 mt-2">
+        <app-input-text cssClass="w-full border border-zinc-300" placeholder="Rua" height="45px"
+                        [formControl]="formControl('street')"
+        ></app-input-text>
+      </div>
+      <div class="col-12 col-md-3 mt-2">
+        <app-input-text cssClass="w-full border border-zinc-300" placeholder="CEP" height="45px"
+                        [formControl]="formControl('cep')"
+        ></app-input-text>
+      </div>
+      <div class="col-12 col-md-5 mt-2">
+        <app-input-text cssClass="w-full border border-zinc-300" placeholder="Bairro" height="45px"
+                        [formControl]="formControl('neighborhood')"
+        ></app-input-text>
+      </div>
+      <div class="col-12 col-md-4 mt-2">
+        <app-input-text cssClass="w-full border border-zinc-300" placeholder="Cidade" height="45px"
+                        [formControl]="formControl('city')"
+        ></app-input-text>
+      </div>
+      <div class="col-12 col-md-3 mt-2">
+        <app-input-text cssClass="w-full border border-zinc-300" placeholder="Estado" height="45px"
+                        [formControl]="formControl('state')"
+        ></app-input-text>
+      </div>
+    </div>
+  </form>
+
+  <div class="my-4">
+    <app-data-grid [buttons]="medicineButtons" title="Meus medicamentos"></app-data-grid>
+  </div>
+</div>
