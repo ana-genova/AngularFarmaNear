@@ -37,8 +37,8 @@ export class AuthService {
     this.router.navigate([RoutesUtils.LOGIN]);
   }
 
-  authHeader(token?: string): { Authorization: string } {
-    return {Authorization: `Bearer ${token ?? this.payloadService.accessToken}`};
+  authHeader(): { Authorization: string } {
+    return {Authorization: `${this.payloadService.accessToken}`};
   }
 
   get logout$(): Observable<any> {

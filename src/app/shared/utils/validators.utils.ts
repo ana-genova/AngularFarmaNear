@@ -110,7 +110,6 @@ function requiredFactory(): any {
 
 function passwordDynamicValidator(): any {
   return (control: FormControl): { errorMessage: string } | null => {
-    console.log(control);
     if (!control.value) {
       return ValidatorsUtils.errorMessage();
     }
