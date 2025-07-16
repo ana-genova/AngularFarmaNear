@@ -9,6 +9,12 @@ import {RoutesUtils} from '../../../shared/utils/routes.utils';
 import {ValidatorsUtils} from '../../../shared/utils/validators.utils';
 
 import {UserType} from '../../../shared/enum/user-type.enum';
+import {RequestService} from '../../../shared/service/request.service';
+import {EndpointUtils} from '../../../shared/utils/endpoint.utils';
+import {ToastUtils} from '../../../shared/utils/toast.utils';
+import {SharedUtils} from '../../../shared/utils/shared.utils';
+import {WaitingScreen} from '../../../shared/utils/waiting-screen.utils';
+import {finalize} from 'rxjs';
 
 @Component({
   selector: 'app-accreditation',
@@ -24,8 +30,9 @@ export class AccreditationComponent {
   protected userPlaceholder: string;
   protected documentPlaceholder: string;
 
-  constructor(private _formBuilder: FormBuilder,
-              private _router: Router) {
+  constructor(private _router: Router,
+              private _formBuilder: FormBuilder,
+              private _requestService: RequestService) {
     this.form = this._formBuilder.group({
       login: new FormControl(null, [ValidatorsUtils.required]),
       password: new FormControl(null, [ValidatorsUtils.passwordDynamic]),
@@ -62,5 +69,16 @@ export class AccreditationComponent {
       this.form.get('passwordConfirmation')?.setErrors({errorMessage: 'As senhas informadas não conferem.'});
       return;
     }
+
+    WaitingScreen.show();
+    const accreditation = this.form.value;
+    accreditation.login = SharedUtils.normalizeDocument(accreditation.login);
+
+    this._requestService.post$(accreditation, new EndpointUtils().ApiBase.USER_CREATE)
+      .pipe(finalize(() => WaitingScreen.hide()))
+      .subscribe(() => {
+        ToastUtils.success('Cadastro realizado com sucesso');
+        this._router.navigate([RoutesUtils.LOGIN]);
+      });
   }
 }

@@ -1,7 +1,7 @@
 <div class="relative h-full">
   <div class="flex flex-col flex-auto h-full min-w-0 overflow-x-hidden w-full">
-    <div class="relative flex align-items-center shadow">
-      <div class="w-full sm:w-[300px] h-[70px] flex p-4 align-items-center">
+    <div class="relative flex justify-between items-center shadow">
+      <div class="w-full sm:w-[300px] h-[70px] flex p-4 items-center">
         <a class="text-primary font-parkinsans text-xl sm:text-3xl font-semibold" href="/home">
           {{ appTitle }}
         </a>
@@ -12,6 +12,11 @@
             </button>
           </div>
         </div>
+      </div>
+      <div class="w-full sm:w-[130px] h-[70px] flex p-4 items-center justify-end">
+        <button (click)="singout()" class="button button-normal p-2">
+          <i class="fas fa-sign-out me-3"></i> Sair
+        </button>
       </div>
     </div>
     <div class="flex flex-1">

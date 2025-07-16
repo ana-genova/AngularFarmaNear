@@ -4,6 +4,7 @@ import {NgOptimizedImage} from "@angular/common";
 import {NavigationService} from '../../../shared/service/navigation.service';
 import {AppConfigService} from '../../../app.service';
 import {RouterOutlet} from '@angular/router';
+import {AuthService} from '../../../shared/service/auth.service';
 
 @Component({
   selector: 'app-layout',
@@ -20,6 +21,7 @@ export class LayoutComponent {
   protected appTitle: string;
 
   constructor(appConfigService: AppConfigService,
+              private _authService: AuthService,
               private _navigationService: NavigationService) {
     this.appTitle = appConfigService.appTitle;
   }
@@ -28,4 +30,7 @@ export class LayoutComponent {
     this._navigationService.toggle();
   }
 
+  singout(): void {
+    this._authService.unauthorize();
+  }
 }

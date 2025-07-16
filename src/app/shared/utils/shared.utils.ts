@@ -33,4 +33,11 @@ export class SharedUtils {
     return '';
   }
 
+  static normalizeDocument = (username: string) => {
+    const text = username.replace(/\D/gi, '');
+    if (text.length === 11 || text.length === 14) {
+      return text;
+    }
+    return username;
+  };
 }
