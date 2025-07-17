@@ -13,10 +13,17 @@
           </div>
         </div>
       </div>
-      <div class="w-full sm:w-[130px] h-[70px] flex p-4 items-center justify-end">
-        <button (click)="singout()" class="button button-normal p-2">
-          <i class="fas fa-sign-out me-3"></i> Sair
-        </button>
+      <div class="w-[330px] h-[70px] flex items-center justify-end me-3">
+        <div class="w-[200px] h-[70px] flex items-center justify-end me-3">
+          @if (userName && userName !== '') {
+            <p class="overflow-hidden text-ellipsis">Olá, {{ userName }}!</p>
+          }
+        </div>
+        <div class="py-4 w-[130px]">
+          <button (click)="singout()" class="button button-normal p-2">
+            <i class="fas fa-sign-out me-3"></i> Sair
+          </button>
+        </div>
       </div>
     </div>
     <div class="flex flex-1">

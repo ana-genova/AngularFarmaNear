@@ -5,6 +5,7 @@ import {NavigationService} from '../../../shared/service/navigation.service';
 import {AppConfigService} from '../../../app.service';
 import {RouterOutlet} from '@angular/router';
 import {AuthService} from '../../../shared/service/auth.service';
+import {PayloadService} from '../../../shared/service/payload.service';
 
 @Component({
   selector: 'app-layout',
@@ -19,11 +20,14 @@ import {AuthService} from '../../../shared/service/auth.service';
 export class LayoutComponent {
 
   protected appTitle: string;
+  protected userName: string = '';
 
   constructor(appConfigService: AppConfigService,
               private _authService: AuthService,
+              private _payloadService: PayloadService,
               private _navigationService: NavigationService) {
     this.appTitle = appConfigService.appTitle;
+    this.userName = this._payloadService.name || '';
   }
 
   toggleMobileMenu(): void {

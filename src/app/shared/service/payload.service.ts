@@ -8,6 +8,7 @@ import {TokenPayload} from '../interface/token-payload.interface';
 export class PayloadService {
 
   static readonly constPayload = '_tokenFSUS';
+  static readonly constLL = '_LLFSUS';
 
   get isLoggedIn(): boolean {
     return !!this.accessToken;
@@ -25,26 +26,34 @@ export class PayloadService {
     return this.tokenPayload?.authToken || null;
   }
 
+  get login(): string | null {
+    return PayloadService.getValueStorage(PayloadService.constLL);
+  }
+
   get tokenPayload(): TokenPayload | null {
-    return PayloadService.getValueStorage(PayloadService.constPayload);
+    return PayloadService.getValueStorage(PayloadService.constPayload) as TokenPayload | null;
   }
 
   static addSession<T>(value: T): void {
     sessionStorage.setItem(PayloadService.constPayload, btoa(JSON.stringify(value)));
   }
 
-  static removeSession(): void {
-    sessionStorage.removeItem(PayloadService.constPayload);
+  static saveLastLogin(login: string) {
+    sessionStorage.setItem(PayloadService.constLL, btoa(JSON.stringify(login)));
   }
 
-  private static getValueStorage(name: string): TokenPayload | null {
+  static removeSession(): void {
+    sessionStorage.removeItem(PayloadService.constPayload);
+    sessionStorage.removeItem(PayloadService.constLL);
+  }
+
+  private static getValueStorage(name: string): any | null {
     let storage: any = sessionStorage.getItem(name);
     try {
-      storage = JSON.parse(atob(storage)) as TokenPayload;
+      storage = JSON.parse(atob(storage));
     } catch {
       storage = null;
     }
     return storage;
   }
-
 }

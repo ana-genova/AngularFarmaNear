@@ -14,7 +14,7 @@ import {EndpointUtils} from '../../../shared/utils/endpoint.utils';
 import {ToastUtils} from '../../../shared/utils/toast.utils';
 import {SharedUtils} from '../../../shared/utils/shared.utils';
 import {WaitingScreen} from '../../../shared/utils/waiting-screen.utils';
-import {finalize} from 'rxjs';
+import {finalize, switchMap} from 'rxjs';
 
 @Component({
   selector: 'app-accreditation',
@@ -76,9 +76,14 @@ export class AccreditationComponent {
 
     this._requestService.post$(accreditation, new EndpointUtils().ApiBase.USER_CREATE)
       .pipe(finalize(() => WaitingScreen.hide()))
-      .subscribe(() => {
-        ToastUtils.success('Cadastro realizado com sucesso');
-        this._router.navigate([RoutesUtils.LOGIN]);
+      .subscribe({
+        next: () => {
+          ToastUtils.success('Cadastro realizado com sucesso');
+          this._router.navigate([RoutesUtils.LOGIN]);
+        },
+        error: (error: any) => {
+          DialogUtils.error('Atenção', `Um erro aconteceu: ${JSON.stringify(error.error)}`, true);
+        }
       });
   }
 }

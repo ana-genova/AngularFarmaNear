@@ -52,13 +52,21 @@ export class InputTextComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.formControl) {
-      this.formControl.valueChanges.subscribe(value => this.valueChanged.emit(value));
+      this.formControl.valueChanges.subscribe((value) => {
+        if (this._value !== value) {
+          this.valueChanged.emit(value);
+        }
+      });
     }
   }
 
   writeValue(value: any): void {
-    this._value = value;
-    this.formControl?.setValue(value, {emitEvent: false}); // atualiza o valor no formControl
+    if (this._value !== value) {
+      this._value = value;
+      if (this.formControl) {
+        this.formControl.setValue(value, {emitEvent: false});
+      }
+    }
   }
 
   registerOnChange(fn: any): void {
@@ -86,6 +94,6 @@ export class InputTextComponent implements AfterViewInit {
     if (!this.formControl || !this.formControl.errors) {
       return '';
     }
-    return this.formControl.errors['errorMessage'] ??  '';
+    return this.formControl.errors['errorMessage'] ?? '';
   }
 }

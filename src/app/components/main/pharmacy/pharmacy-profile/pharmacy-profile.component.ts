@@ -1,7 +1,15 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {InputTextComponent} from "../../../../shared/components/input-text/input-text.component";
 import {ValidatorsUtils} from '../../../../shared/utils/validators.utils';
+import {RequestService} from '../../../../shared/service/request.service';
+import {EndpointUtils} from '../../../../shared/utils/endpoint.utils';
+import {PayloadService} from '../../../../shared/service/payload.service';
+import {ToastUtils} from '../../../../shared/utils/toast.utils';
+import {DialogUtils} from '../../../../shared/utils/dialog.utils';
+import {SharedUtils} from '../../../../shared/utils/shared.utils';
+import {WaitingScreen} from '../../../../shared/utils/waiting-screen.utils';
+import {finalize} from 'rxjs';
 
 @Component({
   selector: 'app-pharmacy-profile',
@@ -13,16 +21,25 @@ import {ValidatorsUtils} from '../../../../shared/utils/validators.utils';
   templateUrl: './pharmacy-profile.component.html',
   styleUrl: './pharmacy-profile.component.scss'
 })
-export class PharmacyProfileComponent {
+export class PharmacyProfileComponent implements OnInit {
 
   protected form: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder,
+              private _payloadService: PayloadService,
+              private _requestService: RequestService) {
     this.form = this._formBuilder.group({
+      id: new FormControl(null),
       cnpj: new FormControl(null, [ValidatorsUtils.required]),
       name: new FormControl(null, [ValidatorsUtils.required]),
       email: new FormControl(null, [ValidatorsUtils.required]),
-      phone: new FormControl(null),
+      phone: new FormControl(null, [ValidatorsUtils.required]),
+      street: new FormControl(null, [ValidatorsUtils.required]),
+      neighborhood: new FormControl(null, [ValidatorsUtils.required]),
+      city: new FormControl(null, [ValidatorsUtils.required]),
+      number: new FormControl(null, [ValidatorsUtils.required]),
+      state: new FormControl(null, [ValidatorsUtils.required]),
+      zipCode: new FormControl(null, [ValidatorsUtils.required]),
     });
   }
 
@@ -30,7 +47,38 @@ export class PharmacyProfileComponent {
     return this.form.get(formControlName) ? this.form.get(formControlName) as FormControl : new FormControl();
   }
 
-  submit() {
+  ngOnInit(): void {
+    const login = this._payloadService.login;
+    if (!login) {
+      return;
+    }
 
+    WaitingScreen.show();
+    this._requestService.get$(`${new EndpointUtils().ApiPharmacy.REGISTER}?cnpj=${login}`)
+      .pipe(finalize(() => WaitingScreen.hide()))
+      .subscribe({
+      next: (response: any) => {
+        response.cnpj = SharedUtils.formatCNPJ(response.cnpj);
+        this.form.setValue(response)
+      },
+      error: () => this.form.patchValue({
+        cnpj: SharedUtils.formatCNPJ(login),
+        name: this._payloadService.name,
+      })
+    });
+  }
+
+  protected submit(): void {
+    if (ValidatorsUtils.formIsInvalid(this.form)) {
+      return;
+    }
+
+    WaitingScreen.show();
+    const updateValue = this.form.value;
+    updateValue.cnpj = SharedUtils.normalizeDocument(updateValue.cnpj);
+
+    this._requestService.post$(this.form.value, new EndpointUtils().ApiPharmacy.REGISTER_PHARMACY)
+      .pipe(finalize(() => WaitingScreen.hide()))
+      .subscribe(() => ToastUtils.success('Informações atualizadas com sucesso'));
   }
 }

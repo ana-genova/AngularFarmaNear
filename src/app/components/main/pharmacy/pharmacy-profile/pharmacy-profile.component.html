@@ -5,8 +5,8 @@
   <form [formGroup]="form" (submit)="submit()">
     <div class="row g-1">
       <div class="col-12 col-md-3 mt-2">
-        <app-input-text cssClass="w-full border border-zinc-300" placeholder="CPF" height="45px"
-                        [formControl]="formControl('cpf')"
+        <app-input-text cssClass="w-full border border-zinc-300" placeholder="CNPJ" height="45px"
+                        [formControl]="formControl('cnpj')"
         ></app-input-text>
       </div>
       <div class="col-12 col-md-6 mt-2">
@@ -24,15 +24,46 @@
                         [formControl]="formControl('email')"
         ></app-input-text>
       </div>
+      <div class="col-12 col-md-6 mt-2">
+        <app-input-text cssClass="w-full border border-zinc-300" placeholder="Rua" height="45px"
+                        [formControl]="formControl('street')"
+        ></app-input-text>
+      </div>
+      <div class="col-12 col-md-3 mt-2">
+        <app-input-text cssClass="w-full border border-zinc-300" placeholder="Rua" height="45px"
+                        [formControl]="formControl('number')"
+        ></app-input-text>
+      </div>
+      <div class="col-12 col-md-3 mt-2">
+        <app-input-text cssClass="w-full border border-zinc-300" placeholder="CEP" height="45px"
+                        [formControl]="formControl('cep')"
+        ></app-input-text>
+      </div>
+      <div class="col-12 col-md-5 mt-2">
+        <app-input-text cssClass="w-full border border-zinc-300" placeholder="Bairro" height="45px"
+                        [formControl]="formControl('neighborhood')"
+        ></app-input-text>
+      </div>
+      <div class="col-12 col-md-4 mt-2">
+        <app-input-text cssClass="w-full border border-zinc-300" placeholder="Cidade" height="45px"
+                        [formControl]="formControl('city')"
+        ></app-input-text>
+      </div>
+      <div class="col-12 col-md-3 mt-2">
+        <app-input-text cssClass="w-full border border-zinc-300" placeholder="Estado" height="45px"
+                        [formControl]="formControl('state')"
+        ></app-input-text>
+      </div>
+    </div>
+
+    <div class="row g-1 justify-end mt-3">
+      <div class="col-md-1 justify-end">
+        <button class="button mr-2 w-full h-auto p-2 text-sm flex items-center justify-center button-success"
+                type="submit">
+          Confirmar
+        </button>
+      </div>
     </div>
   </form>
-</div>
-
-<div class="row justify-end">
-  <div class="col-md-1 justify-end">
-    <button class="button mr-2 w-full h-auto p-2 text-sm flex items-center justify-center button-success">
-      Confirmar
-    </button>
-  </div>
 </div>
 

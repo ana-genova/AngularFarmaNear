@@ -33,11 +33,16 @@ export class SharedUtils {
     return '';
   }
 
-  static normalizeDocument = (username: string) => {
-    const text = username.replace(/\D/gi, '');
-    if (text.length === 11 || text.length === 14) {
-      return text;
-    }
-    return username;
+  static normalizeDocument = (document: string) => {
+    return document.replace(/\D/gi, '');
   };
+
+  static formatCNPJ = (document: string) => {
+    return document.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, '$1.$2.$3/$4-$5');
+  };
+
+  static formatCPF = (document: string) => {
+    return document.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4');
+  };
+
 }

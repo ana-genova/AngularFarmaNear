@@ -25,6 +25,7 @@ export class AuthService {
   authenticate$(credentials: Credentials): Observable<boolean> {
     return this.httpClient.post<TokenPayload>(new EndpointUtils().ApiBase.LOGIN, credentials).pipe(switchMap((response: any) => {
       if (response) {
+        PayloadService.saveLastLogin(credentials.login);
         PayloadService.addSession(response);
       }
       return of(true);
