@@ -107,6 +107,7 @@ export class FinderComponent {
 
   private updateCenterAddress = debounce((value: string) => {
     if (!value || this.mapsComponent) {
+      this.mapsComponent.removeAllMarkers();
       this.mapsComponent.centerByAddress(value);
     }
   }, 1500);

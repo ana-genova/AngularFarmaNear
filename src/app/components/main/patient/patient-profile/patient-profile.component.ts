@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 
 import {InputTextComponent} from "../../../../shared/components/input-text/input-text.component";
 import {ValidatorsUtils} from '../../../../shared/utils/validators.utils';
@@ -42,7 +42,7 @@ export class PatientProfileComponent implements OnInit {
       id: new FormControl(null),
       cpf: new FormControl(null, [ValidatorsUtils.required]),
       name: new FormControl(null, [ValidatorsUtils.required]),
-      email: new FormControl(null, [ValidatorsUtils.required]),
+      email: new FormControl(null, [ValidatorsUtils.required, Validators.email]),
       mobilePhone: new FormControl(null, [ValidatorsUtils.required]),
       street: new FormControl(null, [ValidatorsUtils.required]),
       neighborhood: new FormControl(null, [ValidatorsUtils.required]),

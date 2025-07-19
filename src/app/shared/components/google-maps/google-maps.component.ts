@@ -33,6 +33,7 @@ export class GoogleMapsComponent implements OnInit, OnChanges {
 
   protected isLoaded: boolean = false;
   private geocoder!: google.maps.Geocoder;
+  private markers: any = [];
 
   constructor(private _googleMapsService: GoogleMapsService) {
   }
@@ -62,14 +63,25 @@ export class GoogleMapsComponent implements OnInit, OnChanges {
         <div class="mx-auto" style="background-color: #ff0000; border: 1px solid #132f4b; border-radius: 50%; width: 20px; height: 20px;"></div>
       `;
 
-      new this.googleMaps.marker.AdvancedMarkerElement({
+      const marker = new this.googleMaps.marker.AdvancedMarkerElement({
         map: this.map.googleMap,
         position: pharmacy.coordinates,
         title: pharmacy.name ?? '',
         content: markerElement,
       });
+
+      this.markers.push(marker);
     });
   }
+
+  removeAllMarkers(): void {
+    this.markers?.forEach((marker: any) => {
+      marker.map = null;
+    });
+
+    this.markers = [];
+  }
+
 
   centerByAddress(value: string): void {
     if (this.geocoder && value) {

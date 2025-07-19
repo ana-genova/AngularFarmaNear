@@ -104,6 +104,9 @@ export class InputTextComponent implements AfterViewInit {
     if (!this.formControl || !this.formControl.errors) {
       return '';
     }
+    if (this.formControl.errors['email']) {
+      return 'E-mail inválido';
+    }
     return this.formControl.errors['errorMessage'] ?? '';
   }
 }
