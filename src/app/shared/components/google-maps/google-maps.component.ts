@@ -24,7 +24,7 @@ export class GoogleMapsComponent implements OnInit, OnChanges {
   height: number = 500;
 
   @Input()
-  radius: number = 30;
+  radius: number = 3;
 
   @Input()
   address: string = '';
@@ -129,7 +129,7 @@ export class GoogleMapsComponent implements OnInit, OnChanges {
   private getBounds() {
     const circle = new google.maps.Circle({
       center: this.center,
-      radius: this.radius * 100
+      radius: this.radius * 1000
     });
 
     return circle.getBounds()!;

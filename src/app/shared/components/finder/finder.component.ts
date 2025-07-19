@@ -31,13 +31,13 @@ export class FinderComponent {
   height = 500;
 
   protected radiusItems: Array<DropdownItem> = [
-    {type: 30, description: '30'},
-    {type: 60, description: '60'},
-    {type: 120, description: 120}
+    {type: 3, description: '3Km'},
+    {type: 6, description: '6Km'},
+    {type: 12, description: '12Km'}
   ];
 
   protected form: FormGroup;
-  protected selectedRadius: number = 30;
+  protected selectedRadius: number = 3;
 
   constructor(private _formBuilder: FormBuilder,
               private _requestService: RequestService) {
