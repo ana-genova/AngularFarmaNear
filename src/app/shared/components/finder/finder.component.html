@@ -5,33 +5,36 @@
 </div>
 
 <div class="pt-6 lg:pt-8">
-  <div class="row g-0" [formGroup]="form">
-    <div class="col-12 col-md-6 mb-2 md:mb-0">
-      <app-input-text cssClass="w-full" gradient="left" placeholder="Digite aqui o medicamento que procura"
-                      icon="fas fa-magnifying-glass" height="56px" [formControl]="formControl('medicine')"
-      ></app-input-text>
+  <form [formGroup]="form" (submit)="onSubmit()">
+    <div class="row g-0">
+      <div class="col-12 col-md-6 mb-2 md:mb-0">
+        <app-input-text #medicineInput placeholder="Digite aqui o medicamento que procura"
+                        cssClass="w-full" gradient="left" icon="fas fa-magnifying-glass" height="56px"
+                        [formControl]="formControl('medicine')"
+        ></app-input-text>
+      </div>
+      <div class="col-12 col-md-6 mb-2 md:mb-0">
+        <app-input-text cssClass="w-full" gradient="right" placeholder="Digite aqui seu endereço"
+                        icon="fas fa-location-dot" height="56px" [formControl]="formControl('address')"
+        ></app-input-text>
+      </div>
     </div>
-    <div class="col-12 col-md-6 mb-2 md:mb-0">
-      <app-input-text cssClass="w-full" gradient="right" placeholder="Digite aqui seu endereço"
-                      icon="fas fa-location-dot" height="56px" [formControl]="formControl('address')"
-      ></app-input-text>
+    <div class="row g-0 flex items-center pt-1 lg:pt-2">
+      <div class="col cursor-pointer hover:underline" (click)="useLocation()">
+        <i class="fas fa-location-arrow"></i> Usar minha localização
+      </div>
+      <div class="col-auto">
+        <app-dropdown-button placeholder="Raio" [items]="radiusItems" [value]="selectedRadius"
+                             (onItemClick)="onSelectRadius($event)"
+        ></app-dropdown-button>
+      </div>
+      <div class="col-12 col-sm-auto pe-0">
+        <button class="button button-success" type="submit">
+          Buscar medicamento
+        </button>
+      </div>
     </div>
-  </div>
-  <div class="row g-0 flex items-center pt-1 lg:pt-2">
-    <div class="col cursor-pointer hover:underline" (click)="useLocation()">
-      <i class="fas fa-location-arrow"></i> Usar minha localização
-    </div>
-    <div class="col-auto">
-      <app-dropdown-button placeholder="Raio" [items]="radiusItems" [value]="selectedRadius"
-                           (onItemClick)="onSelectRadius($event)"
-      ></app-dropdown-button>
-    </div>
-    <div class="col-12 col-sm-auto pe-0">
-      <button class="button button-success">
-        Buscar medicamento
-      </button>
-    </div>
-  </div>
+  </form>
 </div>
 <div class="pt-6 lg:pt-8">
   <app-google-maps [height]="height" [radius]="selectedRadius"></app-google-maps>

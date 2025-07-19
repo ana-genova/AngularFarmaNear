@@ -14,7 +14,7 @@ export class GoogleMapsService {
 
     return new Promise<void>((resolve, reject) => {
       const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${environment.googleMapsApiKey}`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${environment.googleMapsApiKey}&libraries=marker`;
       script.type = 'text/javascript';
       script.async = true;
       script.defer = true;

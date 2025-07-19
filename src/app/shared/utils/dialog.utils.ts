@@ -76,6 +76,14 @@ export class DialogUtils {
     Swal.fire({ title: title, html: html, text: text, icon: 'info' });
   }
 
+  static infoPromise(title?: string, text?: any, isHtml = false): Promise<SweetAlertResult<Awaited<IDialogUtils>>> {
+    let html;
+    if (isHtml) {
+      html = text;
+    }
+    return Swal.fire({ title: title, html: html, text: text, icon: 'info' });
+  }
+
   static warning(title?: string, text?: any, isHtml = false) {
     let html;
     if (isHtml) {

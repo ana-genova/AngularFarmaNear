@@ -1,11 +1,8 @@
 @if (isLoaded) {
   <google-map #map [height]="height + 'px'" width="100%" [center]="center" [options]="mapOptions">
-    @for (markerPosition of markerPositions; track markerPosition) {
-      <map-marker [position]="markerPosition"></map-marker>
-    }
+    <ng-content select="[mapContent]"></ng-content>
   </google-map>
 } @else {
-
   <div class="d-flex justify-content-center align-items-center" [style.height.px]="height">
     <span>Carregando mapa...</span>
   </div>

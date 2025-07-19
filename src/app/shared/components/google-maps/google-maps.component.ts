@@ -3,13 +3,14 @@ import {GoogleMap, MapMarker} from '@angular/google-maps';
 import {SharedUtils} from '../../utils/shared.utils';
 import {GoogleMapsService} from './google-maps.service';
 import {DialogUtils} from '../../utils/dialog.utils';
+import {PharmacyNear} from '../../interface/pharmacy-near.interface';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   standalone: true,
   selector: 'app-google-maps',
   imports: [
     GoogleMap,
-    MapMarker
   ],
   templateUrl: './google-maps.component.html',
   styleUrl: './google-maps.component.scss'
@@ -28,12 +29,11 @@ export class GoogleMapsComponent implements OnInit, OnChanges {
   @Input()
   address: string = '';
 
-  protected googleMaps: any;
-  protected geocoder: any;
   center: google.maps.LatLngLiteral = {lat: -23.5975766, lng: -46.6779468};
-  markerPositions: Array<any> = [];
-  mapOptions: any = {};
-  protected lastInfoWindow: any;
+  protected mapOptions: any = {};
+
+  protected googleMaps: any;
+
   protected isLoaded: boolean = false;
 
   constructor(private _googleMapsService: GoogleMapsService) {
@@ -56,9 +56,25 @@ export class GoogleMapsComponent implements OnInit, OnChanges {
     }
   }
 
+  setMarkerPositions(response: PharmacyNear[]): void {
+    response.forEach(pharmacy => {
+      const markerElement = document.createElement('div');
+      markerElement.innerHTML = `
+        <div style="font-size: 18px">${pharmacy.name ?? ''}</div>
+        <div class="mx-auto" style="background-color: #ff0000; border: 1px solid #132f4b; border-radius: 50%; width: 20px; height: 20px;"></div>
+      `;
+
+      new this.googleMaps.marker.AdvancedMarkerElement({
+        map: this.map.googleMap,
+        position: pharmacy.coordinates,
+        title: pharmacy.name ?? '',
+        content: markerElement,
+      });
+    });
+  }
+
   private initializeGoogleMapsObjects(): void {
     this.googleMaps = google.maps;
-    this.geocoder = new google.maps.Geocoder();
     this.initMap();
   }
 
@@ -93,52 +109,10 @@ export class GoogleMapsComponent implements OnInit, OnChanges {
     );
   }
 
-  private showPopupInfos(location: any): void {
-    if (this.lastInfoWindow) {
-      this.lastInfoWindow.close();
-    }
-
-    const conteudo = `
-      <div><button id="info-btn" class="bg-primary cursor text-white p-1 mb-2 w-full">Ver</button></div>
-      <div>
-        <b>Título:</b> <br/>
-        <b>Tipo:</b> <br/>
-        <b>Descrição:</b> <br/>
-        <b>Número:</b>
-        <b>Ano:</b>
-      </div>
-    `;
-
-    const infoWindow = new google.maps.InfoWindow({
-      headerDisabled: true,
-      content: conteudo,
-      position: location,
-      pixelOffset: new google.maps.Size(0, -10),
-    });
-
-    this.lastInfoWindow = infoWindow;
-    infoWindow.open(this.map.googleMap);
-    infoWindow.addListener('closeclick', () => this.closeInfoWindow());
-    setTimeout(() => {
-      const button = document.getElementById('info-btn');
-      if (button) {
-        button.addEventListener('click', () => {
-          // Implementar ação do botão
-        });
-      }
-    }, 100);
-  }
-
-  protected closeInfoWindow(): void {
-    if (this.lastInfoWindow) {
-      this.lastInfoWindow.close();
-      this.lastInfoWindow = undefined;
-    }
-  }
-
   private initMap(): void {
     this.mapOptions = {
-      mapTypeId: google.maps.MapTypeId.HYBRID,
+      mapId: environment.googleMapId,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
       disableDefaultUI: true,
       center: this.center,
       zoom: 15,
@@ -150,40 +124,6 @@ export class GoogleMapsComponent implements OnInit, OnChanges {
         strictBounds: true
       }
     };
-  }
-
-  private createMarcadoresProcessos() {
-    if (!this.isLoaded) {
-      return;
-    }
-
-    this.closeInfoWindow();
-
-    if (!SharedUtils.isValidString(this.address)) {
-      return;
-    }
-
-    this.geocoder.geocode({address: this.address}, (results: any, status: any) => {
-      if (status === 'OK' && results && results[0]) {
-        const location = results[0].geometry.location;
-
-        const marker = new google.maps.Marker({
-          position: location,
-          map: this.map.googleMap,
-        });
-
-        marker.addListener('click', () => {
-          this.showPopupInfos(location);
-        });
-
-        if (!this.markerPositions) {
-          this.markerPositions = [];
-        }
-        this.markerPositions.push(location);
-      } else {
-        console.error('Geocode falhou:', status);
-      }
-    });
   }
 
   private getBounds() {

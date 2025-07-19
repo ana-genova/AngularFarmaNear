@@ -16,7 +16,7 @@
     }
 
     @if (formControl) {
-      <input [placeholder]="placeholder" class="form-control" [formControl]="formControl"
+      <input #inputElement [placeholder]="placeholder" class="form-control" [formControl]="formControl"
              (input)="onInput($event.target)" (blur)="onBlur()"/>
     }
   </div>

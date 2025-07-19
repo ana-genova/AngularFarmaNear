@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, forwardRef, Input, Output} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, Input, Output, ViewChild} from '@angular/core';
 import {NgClass, NgTemplateOutlet} from '@angular/common';
 import {FormControl, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule} from '@angular/forms';
 
@@ -21,6 +21,9 @@ import {FormControl, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule} from '
   ],
 })
 export class InputTextComponent implements AfterViewInit {
+
+  @ViewChild('inputElement')
+  input!: ElementRef<HTMLInputElement>;
 
   @Input()
   gradient: 'none' | 'left' | 'right' = 'none';
@@ -88,6 +91,10 @@ export class InputTextComponent implements AfterViewInit {
 
   onBlur(): void {
     this.onTouched();
+  }
+
+  focus(): void {
+    setTimeout(() => this.input?.nativeElement.focus(), 300);
   }
 
   protected get errorMessage(): string {
