@@ -17,7 +17,7 @@
 
     @if (formControl) {
       <input #inputElement [placeholder]="placeholder" class="form-control" [formControl]="formControl"
-             (input)="onInput($event.target)" (blur)="onBlur()"/>
+             (input)="onInput($event.target)" (blur)="onBlur()" [type]="type"/>
     }
   </div>
   @if (formControl.invalid && (formControl.dirty || formControl.touched)) {

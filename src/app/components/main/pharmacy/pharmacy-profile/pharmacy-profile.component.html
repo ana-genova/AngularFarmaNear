@@ -30,7 +30,7 @@
         ></app-input-text>
       </div>
       <div class="col-12 col-md-3 mt-2">
-        <app-input-text cssClass="w-full border border-zinc-300" placeholder="Rua" height="45px"
+        <app-input-text cssClass="w-full border border-zinc-300" placeholder="Número" height="45px"
                         [formControl]="formControl('number')"
         ></app-input-text>
       </div>
@@ -59,7 +59,7 @@
     <div class="row g-1 justify-end mt-3">
       <div class="col-md-1 justify-end">
         <button class="button mr-2 w-full h-auto p-2 text-sm flex items-center justify-center button-success"
-                type="submit">
+                type="submit" [disabled]="disableSubmitButton">
           Confirmar
         </button>
       </div>

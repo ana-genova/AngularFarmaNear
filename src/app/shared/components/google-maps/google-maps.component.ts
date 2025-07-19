@@ -3,7 +3,7 @@ import {GoogleMap, MapMarker} from '@angular/google-maps';
 import {SharedUtils} from '../../utils/shared.utils';
 import {GoogleMapsService} from './google-maps.service';
 import {DialogUtils} from '../../utils/dialog.utils';
-import {PharmacyNear} from '../../interface/pharmacy-near.interface';
+import {PharmacyNear} from '../../interface/pharmacy.interface';
 import {environment} from '../../../../environments/environment';
 
 @Component({
@@ -26,15 +26,13 @@ export class GoogleMapsComponent implements OnInit, OnChanges {
   @Input()
   radius: number = 3;
 
-  @Input()
-  address: string = '';
-
   center: google.maps.LatLngLiteral = {lat: -23.5975766, lng: -46.6779468};
   protected mapOptions: any = {};
 
   protected googleMaps: any;
 
   protected isLoaded: boolean = false;
+  private geocoder!: google.maps.Geocoder;
 
   constructor(private _googleMapsService: GoogleMapsService) {
   }
@@ -73,8 +71,22 @@ export class GoogleMapsComponent implements OnInit, OnChanges {
     });
   }
 
+  centerByAddress(value: string): void {
+    if (this.geocoder && value) {
+      this.geocoder.geocode({address: value}, (results: any, status: any) => {
+        if (status === 'OK' && results && results[0]) {
+          this.center = results[0].geometry.location;
+          this.initMap();
+        } else {
+          DialogUtils.error('Erro ao localizar endereço', 'Não foi possível encontrar o endereço informado.');
+        }
+      });
+    }
+  }
+
   private initializeGoogleMapsObjects(): void {
     this.googleMaps = google.maps;
+    this.geocoder = new google.maps.Geocoder();
     this.initMap();
   }
 

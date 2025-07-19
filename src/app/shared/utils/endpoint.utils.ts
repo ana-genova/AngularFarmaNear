@@ -14,11 +14,17 @@ export class EndpointUtils {
 
   ApiPatient = {
     CREATE: `${this.apiPatient}/patient/create`,
+    READ: `${this.apiPatient}/read/cpf`,
+    FINISH_CREATION: `${this.apiPatient}/finishCreation`,
   }
 
   ApiPharmacy = {
     REGISTER: `${this.apiPharmacy}/register`,
     REGISTER_PHARMACY: `${this.apiPharmacy}/register/drugstore`,
+    DRUGSTORE: `${this.apiPharmacy}/drugstore`,
+    UPLOAD_CSV: `${this.apiPharmacy}/product/upload-csv`,
+    PRODUCTS: `${this.apiPharmacy}/products`,
+    FINISH_CREATION: `${this.apiPharmacy}/finishCreation`,
   }
 
   ApiFinder = {

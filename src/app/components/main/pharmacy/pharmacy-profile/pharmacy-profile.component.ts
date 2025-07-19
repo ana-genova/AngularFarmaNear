@@ -6,7 +6,6 @@ import {RequestService} from '../../../../shared/service/request.service';
 import {EndpointUtils} from '../../../../shared/utils/endpoint.utils';
 import {PayloadService} from '../../../../shared/service/payload.service';
 import {ToastUtils} from '../../../../shared/utils/toast.utils';
-import {DialogUtils} from '../../../../shared/utils/dialog.utils';
 import {SharedUtils} from '../../../../shared/utils/shared.utils';
 import {WaitingScreen} from '../../../../shared/utils/waiting-screen.utils';
 import {finalize} from 'rxjs';
@@ -24,6 +23,7 @@ import {finalize} from 'rxjs';
 export class PharmacyProfileComponent implements OnInit {
 
   protected form: FormGroup;
+  protected disableSubmitButton: boolean = false;
 
   constructor(private _formBuilder: FormBuilder,
               private _payloadService: PayloadService,
@@ -54,18 +54,19 @@ export class PharmacyProfileComponent implements OnInit {
     }
 
     WaitingScreen.show();
-    this._requestService.get$(`${new EndpointUtils().ApiPharmacy.REGISTER}?cnpj=${login}`)
+    this._requestService.get$(`${new EndpointUtils().ApiPharmacy.DRUGSTORE}?cnpj=${login}`)
       .pipe(finalize(() => WaitingScreen.hide()))
       .subscribe({
-      next: (response: any) => {
-        response.cnpj = SharedUtils.formatCNPJ(response.cnpj);
-        this.form.setValue(response)
-      },
-      error: () => this.form.patchValue({
-        cnpj: SharedUtils.formatCNPJ(login),
-        name: this._payloadService.name,
-      })
-    });
+        next: (response: any) => {
+          this.disableSubmitButton = true;
+          response.cnpj = SharedUtils.formatCNPJ(response.cnpj);
+          this.form.setValue(response)
+        },
+        error: () => this.form.patchValue({
+          cnpj: SharedUtils.formatCNPJ(login),
+          name: this._payloadService.name,
+        })
+      });
   }
 
   protected submit(): void {
@@ -77,7 +78,7 @@ export class PharmacyProfileComponent implements OnInit {
     const updateValue = this.form.value;
     updateValue.cnpj = SharedUtils.normalizeDocument(updateValue.cnpj);
 
-    this._requestService.post$(this.form.value, new EndpointUtils().ApiPharmacy.REGISTER_PHARMACY)
+    this._requestService.post$(this.form.value, `${new EndpointUtils().ApiPharmacy.FINISH_CREATION}`)
       .pipe(finalize(() => WaitingScreen.hide()))
       .subscribe(() => ToastUtils.success('Informações atualizadas com sucesso'));
   }

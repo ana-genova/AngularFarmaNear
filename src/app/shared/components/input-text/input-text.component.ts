@@ -41,6 +41,9 @@ export class InputTextComponent implements AfterViewInit {
   height: string = '';
 
   @Input()
+  type: string = 'text';
+
+  @Input()
   formControl!: FormControl;
 
   @Output()

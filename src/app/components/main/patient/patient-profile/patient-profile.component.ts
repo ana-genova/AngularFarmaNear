@@ -27,6 +27,8 @@ import {RequestService} from '../../../../shared/service/request.service';
 export class PatientProfileComponent implements OnInit {
 
   protected form: FormGroup;
+  protected disableSubmitButton: boolean = false;
+
   medicineButtons: Array<DataGridButtons> = [
     {id: 1, label: 'Adicionar', icon: 'fas fa-plus', type: 'success', action: (row) => console.log('Editar', row)},
     {id: 2, label: 'Editar', icon: 'fas fa-pen', type: 'normal', action: (row) => console.log('Editar', row)},
@@ -62,10 +64,11 @@ export class PatientProfileComponent implements OnInit {
     }
 
     WaitingScreen.show();
-    this._requestService.get$(`${new EndpointUtils().ApiPatient.CREATE}?cpf=${login}`)
+    this._requestService.get$(`${new EndpointUtils().ApiPatient.READ}/${login}`)
       .pipe(finalize(() => WaitingScreen.hide()))
       .subscribe({
       next: (response: any) => {
+        this.disableSubmitButton = true;
         response.cpf = SharedUtils.formatCPF(response.cpf);
         this.form.setValue(response)
       },
@@ -85,7 +88,7 @@ export class PatientProfileComponent implements OnInit {
     const updateValue = this.form.value;
     updateValue.cpf = SharedUtils.normalizeDocument(updateValue.cpf);
 
-    this._requestService.post$(this.form.value, new EndpointUtils().ApiPatient.CREATE)
+    this._requestService.post$(this.form.value, new EndpointUtils().ApiPatient.FINISH_CREATION)
       .pipe(finalize(() => WaitingScreen.hide()))
       .subscribe(() => ToastUtils.success('Informações atualizadas com sucesso'));
   }

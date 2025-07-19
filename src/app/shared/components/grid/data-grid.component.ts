@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {NgClass} from '@angular/common';
 import {ColumnDef, DataGridButtons} from '../../interface/data-grid.interface';
@@ -11,7 +11,7 @@ import {ColumnDef, DataGridButtons} from '../../interface/data-grid.interface';
   ],
   templateUrl: './data-grid.component.html'
 })
-export class DataGridComponent implements OnInit {
+export class DataGridComponent implements OnInit, OnChanges {
 
   @Input()
   buttons: Array<DataGridButtons> | undefined;
@@ -33,24 +33,11 @@ export class DataGridComponent implements OnInit {
   selectedRow = null;
 
   ngOnInit(): void {
-    this.columns = [
-      {id: 1, field: 'id', header: 'ID'},
-      {id: 2, field: 'product', header: 'Produto'},
-      {id: 3, field: 'brand', header: 'Marca'},
-      {id: 4, field: 'quantity', header: 'Quantidade'},
-      {id: 5, field: 'price', header: 'Preço'},
-    ];
-
-    this.rows = Array.from({length: 42}).map((_, i) => ({
-      id: i + 1,
-      product: `Remédio ${i + 1}`,
-      brand: `Marca ${i + 1}`,
-      quantity: 5 + i,
-      price: `R$ ${20 + i},98`,
-    }));
-
-    this.totalPages = Math.ceil(this.rows.length / this.pageSize);
     this.pageInput = this.currentPage;
+  }
+
+  ngOnChanges(): void {
+    this.totalPages = Math.ceil(this.rows.length / this.pageSize);
   }
 
   get pagedRows(): any[] {

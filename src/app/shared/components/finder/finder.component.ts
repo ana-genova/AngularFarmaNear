@@ -5,8 +5,9 @@ import {InputTextComponent} from '../input-text/input-text.component';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {DialogUtils} from '../../utils/dialog.utils';
 import {RequestService} from '../../service/request.service';
-import {PharmacyNear} from '../../interface/pharmacy-near.interface';
+import {PharmacyNear} from '../../interface/pharmacy.interface';
 import {EndpointUtils} from '../../utils/endpoint.utils';
+import {debounce} from 'lodash';
 
 @Component({
   selector: 'app-finder',
@@ -45,6 +46,8 @@ export class FinderComponent {
       medicine: new FormControl(),
       address: new FormControl()
     });
+
+    this.form.get('address')?.valueChanges.subscribe(value => this.updateCenterAddress(value));
   }
 
   protected onSelectRadius(item: DropdownItem): void {
@@ -52,6 +55,7 @@ export class FinderComponent {
   }
 
   protected useLocation(): void {
+    this.form.get('address')?.setValue('');
     this.mapsComponent.initGeolocation(true);
   }
 
@@ -100,4 +104,10 @@ export class FinderComponent {
 
     this.mapsComponent.setMarkerPositions(response);
   }
+
+  private updateCenterAddress = debounce((value: string) => {
+    if (!value || this.mapsComponent) {
+      this.mapsComponent.centerByAddress(value);
+    }
+  }, 1500);
 }

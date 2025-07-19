@@ -1,4 +1,4 @@
-import {ApplicationConfig, provideZoneChangeDetection} from '@angular/core';
+import {ApplicationConfig, DEFAULT_CURRENCY_CODE, LOCALE_ID, provideZoneChangeDetection} from '@angular/core';
 import {provideRouter} from '@angular/router';
 
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
@@ -13,6 +13,8 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([
         authInterceptor,
       ])
-    )
+    ),
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' },
   ]
 };
