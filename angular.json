@@ -40,6 +40,11 @@
                 "output": "./"
               },
               {
+                "glob": "custom.d.ts",
+                "input": "./",
+                "output": "./"
+              },
+              {
                 "glob": ".env",
                 "input": "./",
                 "output": "./"
