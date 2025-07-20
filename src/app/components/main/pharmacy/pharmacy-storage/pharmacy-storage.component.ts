@@ -39,6 +39,7 @@ export class PharmacyStorageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadDatasource();
   }
 
   upload(event: any): void {
@@ -61,7 +62,6 @@ export class PharmacyStorageComponent implements OnInit {
       next: (response: PharmacyStorage[]) => {
         response.forEach(pharmacyStorage => {
           pharmacyStorage.expirationDate = new Date(pharmacyStorage.expirationDate).toLocaleDateString();
-
         });
         this.datasource = response;
       }
