@@ -11,6 +11,7 @@ import {UserType} from '../../../shared/enum/user-type.enum';
 import {RoutesUtils} from '../../../shared/utils/routes.utils';
 import {ValidatorsUtils} from '../../../shared/utils/validators.utils';
 import {SharedUtils} from '../../../shared/utils/shared.utils';
+import {RequestService} from '../../../shared/service/request.service';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +28,7 @@ export class LoginComponent {
 
   constructor(private router: Router,
               private _formBuilder: FormBuilder,
+              private _requestService: RequestService,
               private _authService: AuthService,
               private _payloadService: PayloadService) {
     this.form = this._formBuilder.group({
@@ -40,6 +42,8 @@ export class LoginComponent {
   }
 
   login(): void {
+    /*this._requestService.get$('pharmacy/ping').subscribe();
+    return;*/
     if (ValidatorsUtils.formIsInvalid(this.form)) {
       return;
     }

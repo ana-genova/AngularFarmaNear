@@ -1,7 +1,9 @@
 import {inject} from '@angular/core';
-import {HttpErrorResponse, HttpHeaderResponse, HttpInterceptorFn, HttpResponse} from '@angular/common/http';
+import {HttpErrorResponse, HttpInterceptorFn} from '@angular/common/http';
+
 import {catchError, tap} from 'rxjs/operators';
 import {Observable, throwError} from 'rxjs';
+
 import {AuthService} from '../service/auth.service';
 import {PayloadService} from '../service/payload.service';
 
@@ -16,9 +18,9 @@ export const authInterceptor: HttpInterceptorFn = (request, next) => {
   }
 
   return next(request).pipe(
-    tap(response => {
-      if (response instanceof HttpResponse) {
-        const newToken = response?.headers?.get('Authorization');
+    tap(() => {
+      if (request && request.headers) {
+        const newToken = request.headers.get('Authorization');
         if (newToken) {
           PayloadService.addSession(newToken);
         }
