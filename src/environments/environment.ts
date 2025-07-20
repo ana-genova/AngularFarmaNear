@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  googleMapsApiKey: '',
-  googleMapId: '',
-  baseUrl: '',
+  googleMapsApiKey: process.env['googleMapsApiKey'] || '',
+  googleMapId: process.env['googleMapId'] || '',
+  baseUrl: process.env['baseUrl'] || '',
 };
