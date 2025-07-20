@@ -23,7 +23,7 @@ export class EndpointUtils {
     REGISTER_PHARMACY: `${this.apiPharmacy}/register/drugstore`,
     DRUGSTORE: `${this.apiPharmacy}/drugstore`,
     UPLOAD_CSV: `${this.apiPharmacy}/product/upload-csv`,
-    PRODUCTS: `${this.apiPharmacy}/products`,
+    PRODUCTS: `${this.apiPharmacy}/product/getProductsByCnpj`,
     FINISH_CREATION: `${this.apiPharmacy}/finishCreation`,
   }
 

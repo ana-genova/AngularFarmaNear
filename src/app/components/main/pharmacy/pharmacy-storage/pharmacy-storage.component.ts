@@ -57,7 +57,7 @@ export class PharmacyStorageComponent implements OnInit {
   }
 
   private loadDatasource(): void {
-    this._requestService.get$(new EndpointUtils().ApiPharmacy.PRODUCTS).subscribe({
+    this._requestService.get$(`${new EndpointUtils().ApiPharmacy.PRODUCTS}/${this._payloadService.login}`).subscribe({
       next: (response: PharmacyStorage[]) => {
         response.forEach(pharmacyStorage => {
           pharmacyStorage.expirationDate = new Date(pharmacyStorage.expirationDate).toLocaleDateString();
