@@ -79,6 +79,7 @@ export class FinderComponent {
       return;
     }
 
+    this.mapsComponent.removeAllMarkers();
     let url = new EndpointUtils().ApiFinder.LOCAL_MEDICINE;
     const requestBody: any = {
       medicine: value.medicine,

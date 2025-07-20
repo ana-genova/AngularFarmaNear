@@ -1,7 +1,7 @@
 import {inject} from '@angular/core';
 import {HttpErrorResponse, HttpInterceptorFn} from '@angular/common/http';
 
-import {catchError, tap} from 'rxjs/operators';
+import {catchError, map, tap} from 'rxjs/operators';
 import {Observable, throwError} from 'rxjs';
 
 import {AuthService} from '../service/auth.service';
@@ -18,14 +18,6 @@ export const authInterceptor: HttpInterceptorFn = (request, next) => {
   }
 
   return next(request).pipe(
-    tap((response: any) => {
-      if (response && response.headers) {
-        const newToken = response.headers.get('Authorization');
-        if (newToken) {
-          PayloadService.addSession(newToken);
-        }
-      }
-    }),
     catchError(error => {
       if (error instanceof HttpErrorResponse && error.status === 403) {
         return handle403(authService);

@@ -54,7 +54,7 @@ export class PharmacyProfileComponent implements OnInit {
     }
 
     WaitingScreen.show();
-    this._requestService.get$(`${new EndpointUtils().ApiPharmacy.DRUGSTORE}?cnpj=${login}`)
+    this._requestService.get$(`${new EndpointUtils().ApiPharmacy.DRUGSTORE}/${login}`)
       .pipe(finalize(() => WaitingScreen.hide()))
       .subscribe({
         next: (response: any) => {
