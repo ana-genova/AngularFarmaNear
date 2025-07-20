@@ -33,6 +33,11 @@
               {
                 "glob": "**/*",
                 "input": "src/assets"
+              },
+              {
+                "glob": ".env",
+                "input": "./",
+                "output": "./"
               }
             ],
             "styles": [
