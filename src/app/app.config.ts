@@ -16,7 +16,7 @@ import {AppConfigService} from './app.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideAppInitializer(() => inject(AppConfigService).loadConfiguration$),
+    // provideAppInitializer(() => inject(AppConfigService).loadConfiguration$),
     provideZoneChangeDetection({eventCoalescing: true}), provideRouter(routes),
     provideHttpClient(
       withInterceptors([
