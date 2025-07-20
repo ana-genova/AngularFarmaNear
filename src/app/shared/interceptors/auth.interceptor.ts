@@ -18,9 +18,9 @@ export const authInterceptor: HttpInterceptorFn = (request, next) => {
   }
 
   return next(request).pipe(
-    tap(() => {
-      if (request && request.headers) {
-        const newToken = request.headers.get('Authorization');
+    tap((response: any) => {
+      if (response && response.headers) {
+        const newToken = response.headers.get('Authorization');
         if (newToken) {
           PayloadService.addSession(newToken);
         }
