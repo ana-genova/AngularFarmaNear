@@ -10,6 +10,7 @@ import {ToastUtils} from '../../../../shared/utils/toast.utils';
 import {RequestService} from '../../../../shared/service/request.service';
 import {PharmacyStorage} from '../../../../shared/interface/pharmacy.interface';
 import {ColumnDef} from '../../../../shared/interface/data-grid.interface';
+import {PayloadService} from '../../../../shared/service/payload.service';
 
 @Component({
   selector: 'app-pharmacy-storage',
@@ -24,7 +25,8 @@ export class PharmacyStorageComponent implements OnInit {
   protected datasource: PharmacyStorage[] = [];
   protected columns: ColumnDef[];
 
-  constructor(private _requestService: RequestService) {
+  constructor(private _requestService: RequestService,
+              private _payloadService: PayloadService) {
     this.columns = [
       {id: 1, field: 'name', header: 'Produto'},
       {id: 2, field: 'brand', header: 'Marca'},
@@ -67,7 +69,7 @@ export class PharmacyStorageComponent implements OnInit {
   }
 
   private saveFile(formData: FormData): void {
-    this._requestService.post$(formData, new EndpointUtils().ApiPharmacy.UPLOAD_CSV).pipe(
+    this._requestService.post$(formData, `${new EndpointUtils().ApiPharmacy.UPLOAD_CSV}/${this._payloadService.login}`).pipe(
       map(event => {
         switch (event.type) {
           case HttpEventType.UploadProgress:
